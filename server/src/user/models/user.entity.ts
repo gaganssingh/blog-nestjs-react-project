@@ -1,4 +1,5 @@
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -24,6 +25,7 @@ export class User {
   @Column()
   password: string;
 
+  // Metadata
   @CreateDateColumn({
     type: 'timestamptz',
   })
@@ -38,4 +40,10 @@ export class User {
     type: 'timestamptz',
   })
   'deletedAt': Date;
+
+  // Methods/Hooks
+  @BeforeInsert()
+  emailToLowerCase() {
+    this.email = this.email.toLowerCase();
+  }
 }
