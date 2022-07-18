@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  blog-database:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=blog
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - blog-database:/var/lib/postgresql/data/
+
+  blog-database-test:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=blog
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - blog-database-test:/var/lib/postgresql/data/
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    restart: always
+    volumes:
+      - pgadmin:/root/.pgadmin
+volumes:
+  blog-database:
+  blog-database-test:
+  pgadmin:
